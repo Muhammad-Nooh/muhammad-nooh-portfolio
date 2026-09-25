@@ -1,52 +1,70 @@
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================================
-       Scroll Reveal
-    ========================================= */
+    /* =========================================================
+       SCROLL REVEAL
+    ========================================================= */
 
     const revealElements = document.querySelectorAll(
-        "#about, #skills, #projects, #experience, #contact, " +
-        ".skill-card, .project-card, .experience-item, .about-details div"
+        "#about, #expertise, #skills, #projects, #experience, #contact, " +
+        ".skill-card, .project-card, .experience-item, .about-details div, " +
+        ".expertise-card, .timeline-item"
     );
 
     revealElements.forEach((element, index) => {
+
         element.classList.add("reveal");
 
-        element.style.transitionDelay = `${(index % 5) * 80}ms`;
+        element.style.transitionDelay =
+            `${(index % 5) * 80}ms`;
+
     });
 
 
-    const revealObserver = new IntersectionObserver(
-        (entries, observer) => {
+    if ("IntersectionObserver" in window) {
 
-            entries.forEach((entry) => {
+        const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
 
-                if (entry.isIntersecting) {
+                entries.forEach((entry) => {
 
-                    entry.target.classList.add("visible");
+                    if (entry.isIntersecting) {
 
-                    observer.unobserve(entry.target);
-                }
+                        entry.target.classList.add("visible");
 
-            });
+                        observer.unobserve(entry.target);
 
-        },
-        {
-            threshold: 0.12,
-            rootMargin: "0px 0px -50px 0px"
-        }
-    );
+                    }
 
+                });
 
-    revealElements.forEach((element) => {
-        revealObserver.observe(element);
-    });
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -50px 0px"
+            }
+        );
 
 
-    /* =========================================
-       Hero Mouse Parallax
-    ========================================= */
+        revealElements.forEach((element) => {
+
+            revealObserver.observe(element);
+
+        });
+
+    } else {
+
+        revealElements.forEach((element) => {
+
+            element.classList.add("visible");
+
+        });
+
+    }
+
+
+    /* =========================================================
+       HERO MOUSE PARALLAX
+    ========================================================= */
 
     const hero = document.querySelector("#home");
 
@@ -54,7 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         hero.addEventListener("mousemove", (event) => {
 
-            const rect = hero.getBoundingClientRect();
+            const rect =
+                hero.getBoundingClientRect();
 
             const x =
                 (event.clientX - rect.left) /
@@ -78,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "--hero-y",
                 `${moveY}px`
             );
+
         });
 
 
@@ -92,13 +112,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 "--hero-y",
                 "0px"
             );
+
         });
+
     }
 
 
-    /* =========================================
-       Card Tilt Effect
-    ========================================= */
+    /* =========================================================
+       CARD TILT EFFECT
+    ========================================================= */
 
     const cards = document.querySelectorAll(
         ".skill-card, .project-card"
@@ -109,7 +131,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         card.addEventListener("mousemove", (event) => {
 
-            const rect = card.getBoundingClientRect();
+            const rect =
+                card.getBoundingClientRect();
 
             const x =
                 event.clientX - rect.left;
@@ -117,8 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const y =
                 event.clientY - rect.top;
 
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+            const centerX =
+                rect.width / 2;
+
+            const centerY =
+                rect.height / 2;
 
             const rotateX =
                 ((y - centerY) / centerY) * -2;
@@ -131,216 +157,347 @@ document.addEventListener("DOMContentLoaded", () => {
                  rotateX(${rotateX}deg)
                  rotateY(${rotateY}deg)
                  translateY(-6px)`;
+
         });
 
 
         card.addEventListener("mouseleave", () => {
 
             card.style.transform = "";
+
         });
 
     });
 
-});
-/* =========================================
-   Project Details Modal
-========================================= */
 
-const projectData = {
+    /* =========================================================
+       PROJECT DETAILS
+    ========================================================= */
 
-    "digital-kisaan": {
-        type: "MIS / Financial Management",
-        title: "Digital Kisaan",
-        description:
-            "MIS platform involving financial accounting, credit management, cooperative governance, inventory, member registration, valuation, depreciation, access control, and data integrity.",
-        focus:
-            "Financial accounting and credit management workflows",
-        testing:
-            "Functional, end-to-end, regression",
-        tools:
-            "Test cases, defect tracking, workflow validation",
-        contribution:
-            "Validated GL, Trial Balance, Balancing, Client Management, loan lifecycle, repayments, service charges, governance, inventory, valuation, depreciation, role-based access, and data integrity."
-    },
+    const projectData = {
 
-
-    hfi: {
-        type: "Order Tracking",
-        title: "HFI – Order Tracking System",
-        description:
-            "Order tracking and processing system tested across internal and external certification workflows with cross-module validation.",
-        focus:
-            "Order tracking and processing workflows",
-        testing:
-            "Functional, end-to-end, regression",
-        tools:
-            "Jira, test cases, registration testing",
-        contribution:
-            "Validated cross-module data consistency, reported defects in Jira, and performed registration testing after fixes."
-    },
+        "digital-kisaan": {
+            type: "MIS / Financial Management",
+            title: "Digital Kisaan",
+            description:
+                "MIS platform involving financial accounting, credit management, cooperative governance, inventory, member registration, valuation, depreciation, access control, and data integrity.",
+            focus:
+                "Financial accounting and credit management workflows",
+            testing:
+                "Functional, end-to-end, regression",
+            tools:
+                "Test cases, defect tracking, workflow validation",
+            contribution:
+                "Validated GL, Trial Balance, Balancing, Client Management, loan lifecycle, repayments, service charges, governance, inventory, valuation, depreciation, role-based access, and data integrity."
+        },
 
 
-    loanleaf: {
-        type: "Loan Management",
-        title: "LoanLeaf",
-        description:
-            "Loan management application covering loan registration, approval, disbursement, repayment, and backend validation.",
-        focus:
-            "Loan lifecycle and backend workflows",
-        testing:
-            "Functional, registration, API",
-        tools:
-            "Postman, SQL, SaaS backend validation",
-        contribution:
-            "Tested loan workflows, performed API validation, verified backend data, and identified, tracked, and retested defects."
-    },
+        "hfi": {
+            type: "Order Tracking",
+            title: "HFI – Order Tracking System",
+            description:
+                "Order tracking and processing system tested across internal and external certification workflows with cross-module validation.",
+            focus:
+                "Order tracking and processing workflows",
+            testing:
+                "Functional, end-to-end, regression",
+            tools:
+                "Jira, test cases, registration testing",
+            contribution:
+                "Validated cross-module data consistency, reported defects in Jira, and performed registration testing after fixes."
+        },
 
 
-    dfs: {
-        type: "Mobile Banking",
-        title: "Mobile App DFS",
-        description:
-            "Digital banking mobile application covering authentication, account management, transaction workflows, and backend API communication.",
-        focus:
-            "Digital banking mobile workflows",
-        testing:
-            "Functional, regression, API",
-        tools:
-            "Postman, API validation",
-        contribution:
-            "Tested login, account management, transactions, and backend responses while coordinating issue investigation with developers."
-    },
+        "loanleaf": {
+            type: "Loan Management",
+            title: "LoanLeaf",
+            description:
+                "Loan management application covering loan registration, approval, disbursement, repayment, and backend validation.",
+            focus:
+                "Loan lifecycle and backend workflows",
+            testing:
+                "Functional, registration, API",
+            tools:
+                "Postman, SQL, SaaS backend validation",
+            contribution:
+                "Tested loan workflows, performed API validation, verified backend data, and identified, tracked, and retested defects."
+        },
 
 
-    ciihive: {
-        type: "Banking System",
-        title: "CiiHive",
-        description:
-            "Banking system covering financial workflows, transactions, account management, API integration, and backend processing.",
-        focus:
-            "Banking workflows and financial transactions",
-        testing:
-            "API, integration, end-to-end",
-        tools:
-            "API testing, backend validation",
-        contribution:
-            "Tested banking workflows, financial transactions, account management, API integrations, and backend processing while supporting release validation."
-    },
+        "dfs": {
+            type: "Mobile Banking",
+            title: "Mobile App DFS",
+            description:
+                "Digital banking mobile application covering authentication, account management, transaction workflows, and backend API communication.",
+            focus:
+                "Digital banking mobile workflows",
+            testing:
+                "Functional, regression, API",
+            tools:
+                "Postman, API validation",
+            contribution:
+                "Tested login, account management, transactions, and backend responses while coordinating issue investigation with developers."
+        },
 
 
-    ebda: {
-        type: "Banking & eKYC",
-        title: "EDBA / MCONNECT",
-        description:
-            "Banking and eKYC platform involving production support, functional verification, API validation, defect resolution, and release verification.",
-        focus:
-            "Production support and eKYC integration",
-        testing:
-            "API, integration, functional, production validation",
-        tools:
-            "API testing, application logs, backend analysis",
-        contribution:
-            "Investigated banking application issues, performed eKYC API validation, analyzed authentication and data integrity, and used backend and application logs where required."
+        "ciihive": {
+            type: "Banking System",
+            title: "CiiHive",
+            description:
+                "Banking system covering financial workflows, transactions, account management, API integration, and backend processing.",
+            focus:
+                "Banking workflows and financial transactions",
+            testing:
+                "API, integration, end-to-end",
+            tools:
+                "API testing, backend validation",
+            contribution:
+                "Tested banking workflows, financial transactions, account management, API integrations, and backend processing while supporting release validation."
+        },
+
+
+        "ebda": {
+            type: "Banking & eKYC",
+            title: "EDBA / MCONNECT",
+            description:
+                "Banking and eKYC platform involving production support, functional verification, API validation, defect resolution, and release verification.",
+            focus:
+                "Production support and eKYC integration",
+            testing:
+                "API, integration, functional, production validation",
+            tools:
+                "API testing, application logs, backend analysis",
+            contribution:
+                "Investigated banking application issues, performed eKYC API validation, analyzed authentication and data integrity, and used backend and application logs where required."
+        }
+
+    };
+
+
+    const projectModal =
+        document.getElementById("projectModal");
+
+    const projectModalClose =
+        document.getElementById("projectModalClose");
+
+    const modalProjectType =
+        document.getElementById("modalProjectType");
+
+    const modalProjectTitle =
+        document.getElementById("modalProjectTitle");
+
+    const modalProjectDescription =
+        document.getElementById("modalProjectDescription");
+
+    const modalProjectFocus =
+        document.getElementById("modalProjectFocus");
+
+    const modalProjectTesting =
+        document.getElementById("modalProjectTesting");
+
+    const modalProjectTools =
+        document.getElementById("modalProjectTools");
+
+    const modalProjectContribution =
+        document.getElementById(
+            "modalProjectContribution"
+        );
+
+
+    function closeProjectModal() {
+
+        if (!projectModal) {
+            return;
+        }
+
+        projectModal.classList.remove("active");
+
+        document.body.style.overflow = "";
+
     }
 
-};
+
+    if (
+        projectModal &&
+        projectModalClose
+    ) {
+
+        document.querySelectorAll(
+            ".project-details-btn"
+        ).forEach((button) => {
+
+            button.addEventListener("click", () => {
+
+                const project =
+                    projectData[
+                        button.dataset.project
+                    ];
+
+                if (!project) {
+                    return;
+                }
 
 
-const projectModal = document.getElementById("projectModal");
+                if (modalProjectType) {
+                    modalProjectType.textContent =
+                        project.type;
+                }
 
-const projectModalClose =
-    document.getElementById("projectModalClose");
+                if (modalProjectTitle) {
+                    modalProjectTitle.textContent =
+                        project.title;
+                }
 
-const modalProjectType =
-    document.getElementById("modalProjectType");
+                if (modalProjectDescription) {
+                    modalProjectDescription.textContent =
+                        project.description;
+                }
 
-const modalProjectTitle =
-    document.getElementById("modalProjectTitle");
+                if (modalProjectFocus) {
+                    modalProjectFocus.textContent =
+                        project.focus;
+                }
 
-const modalProjectDescription =
-    document.getElementById("modalProjectDescription");
+                if (modalProjectTesting) {
+                    modalProjectTesting.textContent =
+                        project.testing;
+                }
 
-const modalProjectFocus =
-    document.getElementById("modalProjectFocus");
+                if (modalProjectTools) {
+                    modalProjectTools.textContent =
+                        project.tools;
+                }
 
-const modalProjectTesting =
-    document.getElementById("modalProjectTesting");
-
-const modalProjectTools =
-    document.getElementById("modalProjectTools");
-
-const modalProjectContribution =
-    document.getElementById("modalProjectContribution");
+                if (modalProjectContribution) {
+                    modalProjectContribution.textContent =
+                        project.contribution;
+                }
 
 
-document.querySelectorAll(".project-details-btn")
-    .forEach((button) => {
+                projectModal.classList.add("active");
 
-        button.addEventListener("click", () => {
+                document.body.style.overflow =
+                    "hidden";
 
-            const project =
-                projectData[button.dataset.project];
+            });
 
-            if (!project) {
-                return;
-            }
-
-            modalProjectType.textContent =
-                project.type;
-
-            modalProjectTitle.textContent =
-                project.title;
-
-            modalProjectDescription.textContent =
-                project.description;
-
-            modalProjectFocus.textContent =
-                project.focus;
-
-            modalProjectTesting.textContent =
-                project.testing;
-
-            modalProjectTools.textContent =
-                project.tools;
-
-            modalProjectContribution.textContent =
-                project.contribution;
-
-            projectModal.classList.add("active");
-
-            document.body.style.overflow = "hidden";
         });
 
-    });
+
+        projectModalClose.addEventListener(
+            "click",
+            closeProjectModal
+        );
 
 
-function closeProjectModal() {
-
-    projectModal.classList.remove("active");
-
-    document.body.style.overflow = "";
-}
+        const overlay =
+            projectModal.querySelector(
+                ".project-modal-overlay"
+            );
 
 
-projectModalClose.addEventListener(
-    "click",
-    closeProjectModal
-);
+        if (overlay) {
+
+            overlay.addEventListener(
+                "click",
+                closeProjectModal
+            );
+
+        }
+
+    }
 
 
-projectModal
-    .querySelector(".project-modal-overlay")
-    .addEventListener(
-        "click",
-        closeProjectModal
+    /* =========================================================
+       ESCAPE KEY
+    ========================================================= */
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (event.key === "Escape") {
+
+                closeProjectModal();
+
+                closeMobileMenu();
+
+            }
+
+        }
     );
 
 
-document.addEventListener("keydown", (event) => {
+    /* =========================================================
+       MOBILE NAVIGATION
+    ========================================================= */
 
-    if (event.key === "Escape") {
+    const menuToggle =
+        document.getElementById("menuToggle");
 
-        closeProjectModal();
+    const navMenu =
+        document.getElementById("navMenu");
+
+
+    function closeMobileMenu() {
+
+        if (!menuToggle || !navMenu) {
+            return;
+        }
+
+        navMenu.classList.remove("active");
+
+        menuToggle.classList.remove("active");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+    }
+
+
+    if (menuToggle && navMenu) {
+
+        menuToggle.addEventListener(
+            "click",
+            () => {
+
+                const isOpen =
+                    navMenu.classList.toggle(
+                        "active"
+                    );
+
+                menuToggle.classList.toggle(
+                    "active",
+                    isOpen
+                );
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    isOpen
+                        ? "true"
+                        : "false"
+                );
+
+            }
+        );
+
+
+        navMenu
+            .querySelectorAll("a")
+            .forEach((link) => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        closeMobileMenu();
+
+                    }
+                );
+
+            });
 
     }
 
