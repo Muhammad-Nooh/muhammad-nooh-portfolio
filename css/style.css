@@ -1,0 +1,298 @@
+/* =========================
+   Base Styles
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #1f2937;
+    background: #ffffff;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+section {
+    padding: 80px 8%;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+
+/* =========================
+   Navigation
+========================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+nav {
+    max-width: 1200px;
+    margin: auto;
+    padding: 18px 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: #374151;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #2563eb;
+}
+
+
+/* =========================
+   Hero Section
+========================= */
+
+#home {
+    min-height: 90vh;
+
+    display: flex;
+    align-items: center;
+
+    background: #f8fafc;
+}
+
+#home > div {
+    max-width: 750px;
+}
+
+#home p:first-child {
+    color: #2563eb;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+#home h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+#home p:nth-of-type(2) {
+    font-size: 1.2rem;
+    color: #6b7280;
+    max-width: 650px;
+    margin-bottom: 30px;
+}
+
+#home a {
+    display: inline-block;
+    margin-right: 12px;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+#home a:first-of-type {
+    background: #2563eb;
+    color: white;
+}
+
+#home a:last-of-type {
+    border: 1px solid #2563eb;
+    color: #2563eb;
+}
+
+#home a:hover {
+    opacity: 0.85;
+}
+
+
+/* =========================
+   About
+========================= */
+
+#about {
+    max-width: 1000px;
+    margin: auto;
+}
+
+#about p {
+    max-width: 800px;
+    margin-bottom: 18px;
+    color: #4b5563;
+}
+
+
+/* =========================
+   Skills
+========================= */
+
+#skills {
+    background: #f8fafc;
+}
+
+#skills ul {
+    max-width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+#skills li {
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+
+/* =========================
+   Projects
+========================= */
+
+#projects {
+    max-width: 1200px;
+    margin: auto;
+}
+
+#projects > div {
+    padding: 25px;
+    margin-bottom: 20px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+
+    background: white;
+}
+
+#projects h3 {
+    margin-bottom: 10px;
+}
+
+#projects p {
+    color: #6b7280;
+}
+
+
+/* =========================
+   Experience
+========================= */
+
+#experience {
+    background: #f8fafc;
+}
+
+#experience > div {
+    max-width: 900px;
+}
+
+#experience h3 {
+    margin-bottom: 8px;
+}
+
+#experience p {
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   Contact
+========================= */
+
+#contact {
+    text-align: center;
+}
+
+#contact p {
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+#contact a {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 6px;
+}
+
+
+/* =========================
+   Footer
+========================= */
+
+footer {
+    padding: 25px;
+    text-align: center;
+    background: #111827;
+    color: #d1d5db;
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 768px) {
+
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    #home h1 {
+        font-size: 2.7rem;
+    }
+
+    section {
+        padding: 60px 6%;
+    }
+
+}
