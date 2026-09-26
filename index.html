@@ -7,6 +7,7 @@
     <title>Muhammad Nooh | Application Analyst & SQA Engineer</title>
 
     <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/qa-railway.css">
 </head>
 
 <body>
@@ -1172,5 +1173,129 @@
 
     <script src="js/script.js"></script>
 
+    <script src="js/qa-railway.js"></script>
+
+    <!-- =========================================================
+     QA RAILWAY — HTML
+     Add this immediately after <body> in index.html
+========================================================= -->
+
+<div class="qa-railway" id="qaRailway" aria-hidden="true">
+
+    <div class="qa-railway__header">
+        <span class="qa-railway__signal"></span>
+        <span class="qa-railway__header-text">QA TEST PIPELINE</span>
+    </div>
+
+    <div class="qa-railway__track-area">
+
+        <div class="qa-railway__rail qa-railway__rail--left"></div>
+        <div class="qa-railway__rail qa-railway__rail--right"></div>
+
+        <div class="qa-railway__energy-line"></div>
+        <div class="qa-railway__energy-line qa-railway__energy-line--two"></div>
+        <div class="qa-railway__energy-line qa-railway__energy-line--three"></div>
+
+        <div class="qa-railway__stations">
+
+            <div class="qa-station is-active" data-stage="Planning" data-index="0">
+                <span class="qa-station__node"></span>
+                <span class="qa-station__panel">
+                    <strong>01</strong>
+                    <b>Planning</b>
+                    <small>Scope · Strategy</small>
+                </span>
+            </div>
+
+            <div class="qa-station" data-stage="Requirements Analysis" data-index="1">
+                <span class="qa-station__node"></span>
+                <span class="qa-station__panel">
+                    <strong>02</strong>
+                    <b>Requirements</b>
+                    <small>Analysis · Review</small>
+                </span>
+            </div>
+
+            <div class="qa-station" data-stage="Test Design" data-index="2">
+                <span class="qa-station__node"></span>
+                <span class="qa-station__panel">
+                    <strong>03</strong>
+                    <b>Test Design</b>
+                    <small>Cases · Data</small>
+                </span>
+            </div>
+
+            <div class="qa-station" data-stage="Test Execution" data-index="3">
+                <span class="qa-station__node"></span>
+                <span class="qa-station__panel">
+                    <strong>04</strong>
+                    <b>Execution</b>
+                    <small>Run · Validate</small>
+                </span>
+            </div>
+
+            <div class="qa-station" data-stage="Defect / Retest" data-index="4">
+                <span class="qa-station__node"></span>
+                <span class="qa-station__panel">
+                    <strong>05</strong>
+                    <b>Defect / Retest</b>
+                    <small>Fix · Regression</small>
+                </span>
+            </div>
+
+            <div class="qa-station" data-stage="Test Closure" data-index="5">
+                <span class="qa-station__node"></span>
+                <span class="qa-station__panel">
+                    <strong>06</strong>
+                    <b>Test Closure</b>
+                    <small>Report · Sign-off</small>
+                </span>
+            </div>
+
+        </div>
+
+        <div class="qa-train" id="qaTrain">
+
+            <div class="qa-train__light qa-train__light--top"></div>
+            <div class="qa-train__body">
+
+                <div class="qa-train__roof"></div>
+
+                <div class="qa-train__screen">
+                    <span>QA</span>
+                    <small>LIVE</small>
+                </div>
+
+                <div class="qa-train__text">
+                    <strong>TEST ENGINE</strong>
+                    <span id="qaTrainStage">PLANNING</span>
+                </div>
+
+                <div class="qa-train__front">
+                    <span></span>
+                </div>
+
+            </div>
+
+            <div class="qa-train__wheel qa-train__wheel--one"></div>
+            <div class="qa-train__wheel qa-train__wheel--two"></div>
+            <div class="qa-train__wheel qa-train__wheel--three"></div>
+
+            <div class="qa-train__wake"></div>
+            <div class="qa-train__wake qa-train__wake--two"></div>
+
+        </div>
+
+    </div>
+
+    <div class="qa-railway__hud">
+        <span class="qa-railway__hud-label">STLC</span>
+        <span class="qa-railway__hud-stage" id="qaHudStage">PLANNING</span>
+        <span class="qa-railway__hud-progress">
+            <i id="qaRailwayProgress"></i>
+        </span>
+    </div>
+
+</div>
 </body>
 </html>

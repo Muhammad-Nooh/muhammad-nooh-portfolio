@@ -1,0 +1,916 @@
+/* =========================================================
+   QA RAILWAY — FUTURISTIC STLC TRAIN
+   Namespace: qa-railway / qa-train / qa-station
+========================================================= */
+
+.qa-railway {
+    --railway-blue: #38a7e8;
+    --railway-blue-light: #a9e3ff;
+    --railway-navy: #082f63;
+    --railway-white: #f7fcff;
+    --railway-glass: rgba(255, 255, 255, 0.82);
+
+    position: fixed;
+    top: 0;
+    right: clamp(18px, 3.5vw, 58px);
+    width: 230px;
+    height: 100vh;
+
+    pointer-events: none;
+    z-index: 25;
+
+    isolation: isolate;
+}
+
+.qa-railway::before {
+    content: "";
+    position: absolute;
+    inset: 7% 0 7% auto;
+    width: 230px;
+
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(56, 167, 232, 0.12),
+            transparent 42%
+        ),
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(56, 167, 232, 0.025),
+            transparent
+        );
+
+    filter: blur(14px);
+    opacity: 0.8;
+}
+
+.qa-railway__header {
+    position: absolute;
+    top: 20px;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 8px 11px;
+
+    border: 1px solid rgba(56, 167, 232, 0.22);
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.88),
+            rgba(235, 248, 255, 0.7)
+        );
+
+    box-shadow:
+        0 10px 32px rgba(6, 32, 70, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    font:
+        800 8px/1
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    letter-spacing: 1.5px;
+    color: rgba(8, 47, 99, 0.62);
+}
+
+.qa-railway__signal {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #67cfff;
+
+    box-shadow:
+        0 0 0 3px rgba(56, 167, 232, 0.1),
+        0 0 10px rgba(56, 167, 232, 0.95);
+
+    animation: qaSignalPulse 1.8s ease-in-out infinite;
+}
+
+.qa-railway__track-area {
+    position: absolute;
+    top: 8%;
+    right: 17px;
+    bottom: 8%;
+
+    width: 145px;
+}
+
+.qa-railway__rail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    width: 2px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(56, 167, 232, 0.22) 8%,
+            rgba(56, 167, 232, 0.22) 92%,
+            transparent
+        );
+
+    box-shadow:
+        0 0 8px rgba(56, 167, 232, 0.06);
+}
+
+.qa-railway__rail--left {
+    right: 79px;
+}
+
+.qa-railway__rail--right {
+    right: 45px;
+}
+
+.qa-railway__energy-line {
+    position: absolute;
+    right: 61px;
+    top: 0;
+    width: 1px;
+    height: 27%;
+
+    opacity: 0.55;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #72c8f2,
+            transparent
+        );
+
+    filter: blur(1px);
+
+    animation: qaEnergyTravel 3.4s linear infinite;
+}
+
+.qa-railway__energy-line--two {
+    animation-delay: -1.2s;
+    opacity: 0.32;
+}
+
+.qa-railway__energy-line--three {
+    animation-delay: -2.2s;
+    opacity: 0.2;
+}
+
+.qa-railway__stations {
+    position: absolute;
+    inset: 0;
+}
+
+.qa-station {
+    position: absolute;
+    right: 0;
+
+    width: 150px;
+    height: 46px;
+}
+
+.qa-station:nth-child(1) { top: 4%; }
+.qa-station:nth-child(2) { top: 21%; }
+.qa-station:nth-child(3) { top: 38%; }
+.qa-station:nth-child(4) { top: 55%; }
+.qa-station:nth-child(5) { top: 72%; }
+.qa-station:nth-child(6) { top: 89%; }
+
+.qa-station__node {
+    position: absolute;
+    right: 59px;
+    top: 50%;
+
+    width: 13px;
+    height: 13px;
+
+    transform: translate(50%, -50%);
+
+    border-radius: 50%;
+
+    background: #edfaff;
+
+    border: 2px solid rgba(56, 167, 232, 0.6);
+
+    box-shadow:
+        0 0 0 4px rgba(56, 167, 232, 0.045),
+        0 0 12px rgba(56, 167, 232, 0.18);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        background 0.35s ease;
+}
+
+.qa-station.is-active .qa-station__node {
+    background: #ffffff;
+
+    transform:
+        translate(50%, -50%)
+        scale(1.18);
+
+    border-color: #57c8f7;
+
+    box-shadow:
+        0 0 0 6px rgba(56, 167, 232, 0.08),
+        0 0 20px rgba(56, 167, 232, 0.72),
+        0 0 38px rgba(56, 167, 232, 0.25);
+}
+
+.qa-station__panel {
+    position: absolute;
+    right: 82px;
+    top: 50%;
+
+    transform:
+        translateY(-50%)
+        translateX(7px);
+
+    min-width: 128px;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 8px;
+    row-gap: 2px;
+
+    padding: 8px 10px;
+
+    border:
+        1px solid
+        rgba(56, 167, 232, 0.12);
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.82),
+            rgba(238, 249, 255, 0.58)
+        );
+
+    backdrop-filter: blur(13px);
+    -webkit-backdrop-filter: blur(13px);
+
+    box-shadow:
+        0 10px 24px rgba(6, 32, 70, 0.055);
+
+    opacity: 0.68;
+
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease,
+        border-color 0.4s ease;
+}
+
+.qa-station.is-active .qa-station__panel {
+    opacity: 1;
+
+    transform:
+        translateY(-50%)
+        translateX(0);
+
+    border-color:
+        rgba(56, 167, 232, 0.26);
+
+    box-shadow:
+        0 12px 28px rgba(6, 32, 70, 0.08),
+        0 0 20px rgba(56, 167, 232, 0.055);
+}
+
+.qa-station__panel strong {
+    grid-row: span 2;
+
+    align-self: center;
+
+    font:
+        900 9px/1
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: rgba(56, 167, 232, 0.9);
+    letter-spacing: 0.8px;
+}
+
+.qa-station__panel b {
+    font:
+        800 9px/1.2
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: rgba(8, 47, 99, 0.78);
+
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.qa-station__panel small {
+    font:
+        600 7px/1.2
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: rgba(41, 69, 96, 0.48);
+
+    letter-spacing: 0.55px;
+    text-transform: uppercase;
+}
+
+.qa-train {
+    --train-y: 4%;
+
+    position: absolute;
+
+    right: 23px;
+
+    top: var(--train-y);
+
+    width: 60px;
+    height: 98px;
+
+    transform: translateY(-50%);
+
+    /* JavaScript controls the movement */
+    transition: none;
+
+    z-index: 5;
+
+    filter:
+        drop-shadow(0 0 8px rgba(56, 167, 232, 0.35))
+        drop-shadow(0 12px 30px rgba(6, 32, 70, 0.16));
+}
+
+.qa-train__body {
+    position: absolute;
+    left: 8px;
+    top: 9px;
+
+    width: 43px;
+    height: 64px;
+
+    border-radius:
+        9px
+        9px
+        12px
+        12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #061a33,
+            #0b3d91 50%,
+            #1e80bd
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.28);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -8px 18px rgba(0, 0, 0, 0.16);
+
+    animation: qaTrainFloat 2.8s ease-in-out infinite;
+}
+
+.qa-train__roof {
+    position: absolute;
+
+    left: 5px;
+    top: -5px;
+
+    width: 33px;
+    height: 8px;
+
+    border-radius: 7px 7px 2px 2px;
+
+    background: linear-gradient(
+        90deg,
+        #0b3d91,
+        #7edbff,
+        #0b3d91
+    );
+
+    box-shadow:
+        0 0 10px rgba(56, 167, 232, 0.55);
+}
+
+.qa-train__screen {
+    position: absolute;
+
+    left: 7px;
+    top: 12px;
+
+    width: 29px;
+    height: 23px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(213, 245, 255, 0.98),
+            rgba(100, 205, 245, 0.88)
+        );
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        0 0 11px rgba(114, 200, 242, 0.55);
+}
+
+.qa-train__screen span {
+    font:
+        900 10px/1
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: #082f63;
+    letter-spacing: 0.7px;
+}
+
+.qa-train__screen small {
+    margin-top: -5px;
+
+    font:
+        800 5px/1
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: rgba(8, 47, 99, 0.62);
+    letter-spacing: 1px;
+}
+
+.qa-train__text {
+    position: absolute;
+
+    left: 6px;
+    top: 39px;
+
+    width: 31px;
+
+    display: grid;
+    gap: 2px;
+
+    text-align: center;
+}
+
+.qa-train__text strong {
+    font:
+        900 5px/1
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: rgba(255, 255, 255, 0.72);
+
+    letter-spacing: 0.7px;
+}
+
+.qa-train__text span {
+    font:
+        700 4px/1
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: rgba(207, 241, 255, 0.9);
+
+    letter-spacing: 0.5px;
+}
+
+.qa-train__front {
+    position: absolute;
+
+    right: -7px;
+    top: 24px;
+
+    width: 9px;
+    height: 27px;
+
+    border-radius: 3px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #0b3d91,
+            #53c6f5
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.2);
+}
+
+.qa-train__front span {
+    position: absolute;
+
+    right: 2px;
+    top: 8px;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 6px #ffffff,
+        0 0 12px #72c8f2;
+
+    animation: qaHeadlight 1s ease-in-out infinite;
+}
+
+.qa-train__light {
+    position: absolute;
+
+    right: -11px;
+    top: 19px;
+
+    width: 18px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(114, 200, 242, 0.6),
+            transparent 68%
+        );
+
+    filter: blur(4px);
+
+    z-index: -1;
+}
+
+.qa-train__light--top {
+    right: -13px;
+}
+
+.qa-train__wheel {
+    position: absolute;
+
+    bottom: 15px;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #ccefff 0 18%,
+            #082f63 20% 56%,
+            #38a7e8 58% 66%,
+            #061a33 68%
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.18);
+
+    box-shadow:
+        0 0 8px rgba(56, 167, 232, 0.25);
+
+    animation: qaWheelSpin 0.55s linear infinite;
+}
+
+.qa-train__wheel--one {
+    left: 10px;
+}
+
+.qa-train__wheel--two {
+    left: 25px;
+}
+
+.qa-train__wheel--three {
+    right: 4px;
+}
+
+.qa-train__wake {
+    position: absolute;
+
+    top: 65px;
+    left: -3px;
+
+    width: 66px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(114, 200, 242, 0.12),
+            transparent
+        );
+
+    filter: blur(5px);
+
+    animation: qaWake 1.5s ease-in-out infinite;
+}
+
+.qa-train__wake--two {
+    top: 73px;
+    width: 53px;
+    left: 6px;
+    opacity: 0.55;
+    animation-delay: -0.5s;
+}
+
+.qa-railway__hud {
+    position: absolute;
+
+    right: 0;
+    bottom: 22px;
+
+    width: 128px;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px 8px;
+
+    padding: 8px 10px;
+
+    border:
+        1px solid
+        rgba(56, 167, 232, 0.18);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255, 255, 255, 0.78);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 10px 28px rgba(6, 32, 70, 0.07);
+}
+
+.qa-railway__hud-label {
+    font:
+        900 7px/1
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: rgba(56, 167, 232, 0.86);
+
+    letter-spacing: 1px;
+}
+
+.qa-railway__hud-stage {
+    font:
+        800 7px/1
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: rgba(8, 47, 99, 0.62);
+
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+
+    text-align: right;
+}
+
+.qa-railway__hud-progress {
+    grid-column: 1 / -1;
+
+    height: 3px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(56, 167, 232, 0.08);
+}
+
+.qa-railway__hud-progress i {
+    display: block;
+
+    width: 0%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0b3d91,
+            #38a7e8,
+            #a9e3ff
+        );
+
+    box-shadow:
+        0 0 8px rgba(56, 167, 232, 0.55);
+
+    transition: width 0.14s linear;
+}
+
+
+/* =========================================================
+   KEYFRAMES
+========================================================= */
+
+@keyframes qaSignalPulse {
+    0%, 100% {
+        opacity: 0.55;
+        box-shadow:
+            0 0 0 3px rgba(56, 167, 232, 0.08),
+            0 0 9px rgba(56, 167, 232, 0.55);
+    }
+
+    50% {
+        opacity: 1;
+        box-shadow:
+            0 0 0 4px rgba(56, 167, 232, 0.14),
+            0 0 18px rgba(56, 167, 232, 1);
+    }
+}
+
+@keyframes qaEnergyTravel {
+    from {
+        transform: translateY(-130%);
+    }
+
+    to {
+        transform: translateY(470%);
+    }
+}
+
+@keyframes qaTrainFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes qaHeadlight {
+    0%, 100% {
+        opacity: 0.65;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.18);
+    }
+}
+
+@keyframes qaWheelSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes qaWake {
+    0%, 100% {
+        transform: scaleX(0.78);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: scaleX(1.08);
+        opacity: 0.85;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .qa-railway {
+        right: 10px;
+        transform: scale(0.9);
+        transform-origin: right center;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 780px) {
+
+    .qa-railway {
+        left: auto;
+        right: 0;
+
+        width: 92px;
+
+        transform: scale(0.76);
+        transform-origin: right center;
+
+        opacity: 0.88;
+    }
+
+    .qa-railway::before {
+        width: 92px;
+    }
+
+    .qa-railway__header {
+        right: 4px;
+    }
+
+    .qa-railway__track-area {
+        right: 4px;
+        width: 74px;
+    }
+
+    .qa-railway__rail--left {
+        right: 40px;
+    }
+
+    .qa-railway__rail--right {
+        right: 20px;
+    }
+
+    .qa-railway__energy-line {
+        right: 30px;
+    }
+
+    .qa-station {
+        right: -1px;
+    }
+
+    .qa-station__panel {
+        right: 54px;
+    }
+
+    .qa-train {
+        right: -1px;
+    }
+
+    .qa-railway__hud {
+        right: 3px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .qa-railway {
+        opacity: 0.64;
+        transform: scale(0.62);
+        transform-origin: right bottom;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .qa-railway__signal,
+    .qa-railway__energy-line,
+    .qa-train__body,
+    .qa-train__front span,
+    .qa-train__wheel,
+    .qa-train__wake {
+        animation: none !important;
+    }
+}
